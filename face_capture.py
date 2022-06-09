@@ -62,6 +62,14 @@ def FrontalFaceCapture(window_name, amount_pics, name):
     cap.release()
     cv2.destroyAllWindows()
 
+def start():
+    confirmed = input("Do you want to capture your images for samples? (y/n): ")
+    if confirmed == "y":
+        name = input("Enter your name: ")
+        FrontalFaceCapture("get face", 100, name)
+    else:
+        return
+        
 if __name__ == '__main__':
     name = input("Enter your name: ")
     FrontalFaceCapture("get face", 100, name)

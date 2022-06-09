@@ -1,4 +1,5 @@
 import face_train
+import face_capture
 import numpy as np
 import cv2
 import pickle
@@ -43,19 +44,13 @@ def run():
 	    	roi_gray = gray[y:y+h, x:x+w] #(ycord_start, ycord_end)
 	    	roi_color = frame[y:y+h, x:x+w]
 
-	    	# recognize? deep learned model predict keras tensorflow pytorch scikit learn
 	    	id_, conf = recognizer.predict(roi_gray)
 	    	if conf>=4 and conf <= 85:
-	    		#print(5: #id_)
-	    		#print(labels[id_])
 	    		font = cv2.FONT_HERSHEY_SIMPLEX
 	    		name = labels[id_]
 	    		color = (255, 255, 255)
 	    		stroke = 2
 	    		cv2.putText(frame, name, (x,y), font, 1, color, stroke, cv2.LINE_AA)
-
-	    	# img_item = "current.png"
-	    	# cv2.imwrite(img_item, roi_color)
 
 	    	color = (255, 0, 0) #BGR 0-255 
 	    	stroke = 2
@@ -71,6 +66,9 @@ def run():
 	cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-    face_train.LoadData()
-    run()
+	face_capture.start()
+	print("Processing data...")
+	face_train.LoadData()
+	print("Starting to detect your face from local image source, use CTRL + C to quit.")
+	run()
     
